@@ -124,7 +124,7 @@ class DAOStudent {
         $stmt->execute($data);
 
         //*********** test *****************/
-        /*$sql = "UPDATE artist SET class_id=3, parents_id=3, user_id=12 WHERE id=3";
+        /*$sql = "UPDATE student SET class_id=3, parents_id=3, user_id=12 WHERE id=3";
         $this->con->query($sql); */
         //***********End of  test *****************/
     }

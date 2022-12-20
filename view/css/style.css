@@ -1,0 +1,63 @@
+footer{
+    background-color: #1c2d50;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 35px;
+    text-align: center;
+    color: #CCC;
+}
+
+footer p {
+    padding: 10.5px;
+    margin: 0px;
+    line-height: 100%;
+}
+
+.input-container {
+    margin: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    background: #0a93a6;
+}
+.input-container.upper-part {
+    padding-top: 10px;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+.upper-part {
+    margin-bottom: 0;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.lower-part {
+    margin-top: 0;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}
+
+#student-registration-buttons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.table-container {
+    border: 1px solid #1c2d50;
+    border-radius: 5px;
+    padding: 10px;
+
+}
+
