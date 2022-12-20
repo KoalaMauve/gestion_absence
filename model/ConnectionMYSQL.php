@@ -18,35 +18,36 @@ catch (PDOException $e) {
 }*/
 //*********** End of test *****************/
 
-class connectionMYSQL {
+class connectionMYSQL
+{
     private $conn;
 
-    function __construct() {
+    function __construct()
+    {
 
     }
 
-    public function connecterMysql(){
-        $host   = "127.0.0.1" ;//$config['mysql']['host'];
-        $dbname  = "gestion_absence";//$config['mysql']['dbname'];
-        $user    = "root";//$config['mysql']['user'];
-        $motdepasse   = "";//$config['mysql']['motdepasse'];
+    public function connecterMysql()
+    {
+        $host = "127.0.0.1";//$config['mysql']['host'];
+        $dbname = "gestion_absence";//$config['mysql']['dbname'];
+        $user = "root";//$config['mysql']['user'];
+        $motdepasse = "";//$config['mysql']['motdepasse'];
         //$port = "3308";
         //$this->conn = new PDO('mysql:host='.$host.';dbname='.$dbname.';port='.$port.';charset=utf8', $user, $motdepasse);
-        $this->conn = new PDO('mysql:host='.$host.';dbname='.$dbname.';charset=utf8', $user, $motdepasse);
+        $this->conn = new PDO('mysql:host=' . $host . ';dbname=' . $dbname . ';charset=utf8', $user, $motdepasse);
         $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    public function setConn($conn) {
+    public function setConn($conn)
+    {
         $this->conn = $conn;
     }
-    public function getConn() {
+
+    public function getConn()
+    {
         return $this->conn;
     }
 
 }
-git remote add origin git@github.com:KoalaMauve/gestion_absence.git
-git branch -M main
-git push -u origin main
-
-
 ?>
