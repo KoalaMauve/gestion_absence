@@ -1,6 +1,6 @@
 <?php
 
-class SchoolClass {
+class SchoolClass { //Binded to "class" table
     function __construct() {
     }
     protected $id;
