@@ -1,4 +1,4 @@
-const URLCom = "http://localhost/Form/controller/";
+const URLCom = "http://localhost/gestion_absence/controller/";
 var MyDTdata;
 
 $(document).ready(fillStudentDatatable())
