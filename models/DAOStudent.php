@@ -87,7 +87,7 @@ class DAOStudent {
         $this->con = $Connection->getConn();
     }
 
-    function GetStudent(){
+    function GetAllStudent(){
         $sql= "SELECT * FROM student";
         $stmt = $this->con->prepare($sql);
         $stmt->execute();

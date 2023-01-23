@@ -1,7 +1,7 @@
 <?php
 header('Access-Control-Allow-Origin: *');
-include '../model/DAOStudent.php';
-include '../model/base/Student.php';
+include '../models/DAOStudent.php';
+include '../models/base/Student.php';
 /************************************************************************************************************
 Classe Controleur Student to access DAO
 (JQ==>Ajax ==>Controleur==>DAOStudent(Req)==>BDD)

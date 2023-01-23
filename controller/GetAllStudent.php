@@ -1,6 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: *');
-include '../Model/DAOStudent.php';
+include '../models/DAOStudent.php';
 /************************************************************************************************************
 Classe Controleur student to access DAO
 (JQ==>Ajax ==>Controleur==>DAOStudent(Req)==>BDD)
@@ -10,7 +10,7 @@ Classe Controleur student to access DAO
 
 
 $Dao =new DAOStudent();
-$Students = $Dao->GetStudent();
+$Students = $Dao->GetAllStudent();
 echo json_encode($Students);
 // echo $toto = json_encode($Students[0][0]);
 // var_dump($Students);
