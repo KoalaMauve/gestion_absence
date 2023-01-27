@@ -29,6 +29,7 @@ function ajaxRequest(type, controller, data) {
 }
 
 async function login() {
+    //TODO : directly try to get the user based on his mail & pass, avoid returning full user object from the back.
     mail = {"mail": $("#login-mail").val()};
     password = $("#login-password").val();
     const user = await getUserByEmail(mail) ?? null;
