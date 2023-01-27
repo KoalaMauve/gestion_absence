@@ -76,28 +76,29 @@ function getFormValues(form) {
 }
 
 
-function fillStudentDatatable() {
-    $.ajax({
-        url: URLCom + 'GetStudent.php',
-        type: 'GET',
+async function fillStudentDatatable() {
+    try {
+        const data = await ajaxRequest('GET','GetStudent.php')
+        $('#myTable').DataTable({"data": data,});
+    } catch (e){
+        console.error(e)
+    }
+}
+
+
+function ajaxRequest(type, controller) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+        url: URLCom + controller,
+        type: type,
         async: true,
         dataType: 'json',
-        success: function (data, status) {
-            //alert("hi");
-            var tt = JSON.parse(JSON.stringify(data));
-            //  alert(tt[0].idArtist);
-            MyDTdata =  $('#myTable').DataTable({"data" : data,
-
-                /*columns:[
-                      {data:'Date'},
-                      {data:'Nom_eleve'}
-
-                 ]*/
-            });
+        success: function (data) {
+            resolve(data);
         },
         error : function(data,status){
-            alert(status);
+            reject(status);
         }
+        });
     });
-
 }
