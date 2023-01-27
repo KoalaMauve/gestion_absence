@@ -1,12 +1,73 @@
 const URLCom = "http://localhost/gestion_absence/controller/";
-var MyDTdata;
-
-$(document).ready(fillStudentDatatable())
+$(document).ready(displayLogin())
+function displayLogin() {
+    $('main').hide()
+}
 
 $("#btn-post").click(AddStudent);
 $("#btn-update").click(updateTable);
 $("#btn-delete").click(deleteForm);
 $("#btn-drop").click(dropTable);
+
+
+function ajaxRequest(type, controller, data) {
+    return new Promise(function (resolve, reject) {
+        $.ajax({
+            url: URLCom + controller,
+            type: type,
+            async: true,
+            data: data,
+            dataType: 'json',
+            success: function (response) {
+                resolve(response);
+            },
+            error : function(response,status){
+                reject(status);
+            }
+        });
+    });
+}
+
+async function login() {
+    mail = {"mail": $("#login-mail").val()};
+    password = $("#login-password").val();
+    const user = await getUserByEmail(mail) ?? null;
+    if(user != [] && user != null) {
+        const userPassword = user[0].password;
+        if (userPassword === password){
+            loginSuccessfull();
+        }
+        else {
+            console.error("Mot de passe incorrect")
+        }
+    }
+    else { console.error("Utilisateur Introuvable")}
+}
+
+
+async function getUserByEmail(mail) {
+    try {
+        const data = await ajaxRequest('POST', 'GetUser.php', mail);
+        return data
+    } catch (e) {
+        console.error(e);
+    }
+}
+
+function loginSuccessfull(){
+    $("#login").remove();
+    fillStudentDatatable();
+    $('main').show();
+}
+
+async function fillStudentDatatable() {
+    try {
+        const data = await ajaxRequest('GET','GetAllStudent.php')
+        $('#myTable').DataTable({"data": data,});
+    } catch (e){
+        console.error(e)
+    }
+}
 
 
 function AddStudent() {
@@ -73,32 +134,4 @@ function getFormValues(form) {
     form = "#" + form;
     let value = $(form).val();
     return value;
-}
-
-
-async function fillStudentDatatable() {
-    try {
-        const data = await ajaxRequest('GET','GetStudent.php')
-        $('#myTable').DataTable({"data": data,});
-    } catch (e){
-        console.error(e)
-    }
-}
-
-
-function ajaxRequest(type, controller) {
-    return new Promise(function (resolve, reject) {
-        $.ajax({
-        url: URLCom + controller,
-        type: type,
-        async: true,
-        dataType: 'json',
-        success: function (data) {
-            resolve(data);
-        },
-        error : function(data,status){
-            reject(status);
-        }
-        });
-    });
 }
