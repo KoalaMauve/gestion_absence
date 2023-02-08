@@ -3,6 +3,7 @@ $(document).ready(displayLogin())
 function displayLogin() {
     $('main').hide()
 }
+let activeUser;
 
 $("#btn-post").click(AddStudent);
 $("#btn-update").click(updateTable);
@@ -37,6 +38,7 @@ async function login() {
         const userPassword = user[0].password;
         if (userPassword === password){
             loginSuccessfull();
+            activeUser = user;
         }
         else {
             console.error("Mot de passe incorrect")
@@ -71,7 +73,7 @@ async function fillStudentDatatable() {
 }
 
 
-function AddStudent() {
+/*function AddStudent() {
     form = new RegistrationForm();
     form.setValuesFromDocument();
 
@@ -96,7 +98,7 @@ function AddStudent() {
                 alert(status);
             }
         });
-}
+}*/
 
 function updateTable() {
     console.log("update")
