@@ -6,6 +6,7 @@
     --revert-alt-color: #d4edff;
     --revert-alt-color2: #EFA4C6;
     --main-alt-color: #495874cc;
+    --main-alt-color-gradient: rgba(73, 88, 116, 0.74);
     --font-family: 'Ubuntu', sans-serif;
     --main-font-color: white;
 
@@ -22,7 +23,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 37px - 47px);
+    height: calc(100vh - 37px - 44px);
     width: 100vw;
     background: url("assets/banner.jpg");
     background-repeat: no-repeat;
@@ -123,11 +124,54 @@ h1 {
     padding: 10px;
 
 }
+#absent-container {
+    display: none;
+}
+
+#main {
+    display: flex;
+    flex-direction: row;
+}
+
+#main-container {
+    flex-direction: column;
+    width: 100%;
+}
+.left-sidebar {
+    background: var(--main-alt-color);
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 37px - 44px);
+
+}
+.sidebar-title::after {
+    content: "";
+    margin-top: 0.5em;
+    position: absolute;
+    width: 95%;
+    margin-left: 2px;
+    border-bottom: 1px solid white;
+}
+
+.student-avatar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: calc(100% + 1em);
+    border: 1px solid var(--main-alt-color-gradient);
+    border-radius: 2px;
+    box-shadow: #1c2d50;
+    margin-bottom: 2px;
+}
 
 #student-container {
     height: max-content;
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: center;
+    width: max-content;
+    padding-right: 1em;
 }
 

@@ -69,56 +69,8 @@ async function getAssociatedStudents() {
 
 function loginSuccessfull(){
     $("#login").remove();
-    fillStudentDatatable();
     $('main').show();
     generateStudentsList();
-}
-
-async function fillStudentDatatable() {
-    try {
-        const data = await ajaxRequest('GET','GetAllStudent.php')
-        $('#myTable').DataTable({"data": data,});
-    } catch (e){
-        console.error(e)
-    }
-}
-function updateTable() {
-    console.log("update")
-}
-
-function deleteForm() {
-    console.log("delete")
-}
-
-function dropTable() {
-    console.log("drop")
-}
-
-
-class RegistrationForm{
-    constructor(firstname, lastname, schoolclass, birthdate, city, specialization) {
-        this.firstname = firstname;
-        this.lastname = lastname;
-        this.schoolclass = schoolclass;
-        this.birthdate = birthdate;
-        this.city = city;
-        this.specialization = specialization;
-    }
-
-    setValuesFromDocument() {
-        this.firstname = getFormValue("input-firstname") != null || undefined ? getFormValues("input-firstname") : this.firstname
-        this.lastname = getFormValue("input-lastname") != null || undefined ? getFormValues("input-lastname") : this.lastname
-        this.schoolclass = getFormValue("input-schoolclass") != null || undefined ? getFormValues("input-schoolclass") : this.schoolclass
-        this.birthdate = getFormValue("input-birthdate") != null || undefined ? getFormValues("input-birthdate") : this.birthdate
-        this.city = getFormValue("input-city") != null || undefined ? getFormValues("input-city") : this.city
-        this.specialization = getFormValue("input-specialization") != null || undefined ? getFormValues("input-specialization") : this.specialization
-    }
-}
-
-function getFormValues(form) {
-    form = "#" + form;
-    let value = $(form).val();
-    return value;
 }
 
 async function generateStudentsList() {
@@ -185,4 +137,5 @@ function deleteAbsentTable() {
 function createAbsentTable() {
     table = '<table id="absentTable" class="display col-11 table-striped"><thead><tr><th>ID</th><th>Début</th><th>Fin</th><th>Justifiée</th><th>Commentaire</th></tr></thead><tbody><tr></tr></tbody></table>';
     $('#absent-container').append(table);
+    $('#absent-container').show();
 }
