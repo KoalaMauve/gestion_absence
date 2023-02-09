@@ -58,14 +58,13 @@ class DAOUser {
         //***********End of  test *****************/
 
     }
-    function UpdateStudent($student){
-        $data = ['StudentId' => $student->getStudentId(),
-            'class_id' => $student->getClass_id(),
-            'parents_id' => $student->getParents_id(),
-            'user_id' => $student->getUser_id(),
+    function UpdateUser($user){
+        $data = ['last_name' => $user->getLastName(),
+            'name' => $user->getName(),
+            'user_id'=> $user->getUserId(),
         ];
-        $sql = "UPDATE student SET class_id=:class_id, parents_id=:parents_id, user_id=:user_id
-                   WHERE id=:StudentId";
+        $sql = "UPDATE user SET last_name=:last_name, name=:name
+                   WHERE id=:user_id";
         $stmt = $this->con->prepare($sql);
         $stmt->execute($data);
 
