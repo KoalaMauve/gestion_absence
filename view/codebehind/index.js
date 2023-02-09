@@ -5,7 +5,6 @@ function displayLogin() {
 }
 let activeUser;
 
-$("#btn-post").click(AddStudent);
 $("#btn-update").click(updateTable);
 $("#btn-delete").click(deleteForm);
 $("#btn-drop").click(dropTable);
@@ -37,8 +36,8 @@ async function login() {
     if(user != [] && user != null) {
         const userPassword = user[0].password;
         if (userPassword === password){
+            activeUser = user[0];
             loginSuccessfull();
-            activeUser = user;
         }
         else {
             console.error("Mot de passe incorrect")
@@ -57,10 +56,22 @@ async function getUserByEmail(mail) {
     }
 }
 
+async function getAssociatedStudents() {
+    id = {"id": activeUser.id};
+    try {
+        const data = await ajaxRequest('POST', 'GetStudentByParentId', id);
+        console.log(data)
+        return data
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 function loginSuccessfull(){
     $("#login").remove();
     fillStudentDatatable();
     $('main').show();
+    generateStudentsList();
 }
 
 async function fillStudentDatatable() {
@@ -71,35 +82,6 @@ async function fillStudentDatatable() {
         console.error(e)
     }
 }
-
-
-/*function AddStudent() {
-    form = new RegistrationForm();
-    form.setValuesFromDocument();
-
-    $.ajax({
-            // chargement du fichier externe
-            url: URLCom + 'AddStudent.php',
-            // Passage des données au fichier externe (ici le nom cliqué)
-            type: "POST",
-            data     : {
-                "Firstname": form.firstname,
-                "Lastname": form.lastname,
-                "Birthdate": form.birthdate,
-                "City": form.city,
-                "Schoolclass": form.schoolclass,
-                "Specialization": form.specialization,
-            },
-            dataType : 'html',
-            success  : function(retour,status) {
-                alert(retour);
-            },
-            error : function(data,status){
-                alert(status);
-            }
-        });
-}*/
-
 function updateTable() {
     console.log("update")
 }
@@ -137,4 +119,70 @@ function getFormValues(form) {
     form = "#" + form;
     let value = $(form).val();
     return value;
+}
+
+async function generateStudentsList() {
+    students = await getAssociatedStudents();
+    if (students != null && students != []) {
+        var myItems = [];
+        var component = $( "#student-container" );
+
+        Object.keys(students).forEach(e => {
+            let student = students[e]
+            myItems.push( '<div class="student-avatar" onClick="getStudentAbsents(event)" user="' + student.user_id +
+                '"student="' + student.id + '">' +
+                '<div>' + student.Last_Name + '</div>' +
+                '<div>' + student.Name + '</div>' +
+                '</div>')
+        })
+        component.append(myItems.join( "" ));
+    } else {
+        console.error("No associated students")
+    }
+}
+
+async function getStudentAbsents(event) {
+    student_id = event.target.parentElement.getAttribute('student');
+    user_id = event.target.parentElement.getAttribute('user');
+
+    id = {"id": student_id};
+    try {
+        const data = await ajaxRequest('POST','GetAbsentByStudentId.php', id)
+        var absents = new Array();
+        Object.keys(data).forEach(e => {
+            let obj = data[e];
+            let absent = {};
+            absent.id = obj.id;
+            absent.student_id = obj.student_id;
+            absent.prof_id = obj.prof_id;
+            absent.start_date = obj.start_date;
+            absent.end_date = obj.end_date;
+            absent.is_justified = obj.is_justified;
+            absent.comment = obj.comment;
+            absents.push(absent)
+        })
+        deleteAbsentTable();
+        createAbsentTable();
+        $('#absentTable').DataTable({
+            data: absents,
+            columns : [
+                {data: 'id'},
+                {data: 'start_date'},
+                {data: 'end_date'},
+                {data: 'is_justified'},
+                {data: 'comment'}
+            ]
+        });
+    } catch (e){
+        console.error(e)
+    }
+}
+
+function deleteAbsentTable() {
+    $('#absent-container').empty();
+}
+
+function createAbsentTable() {
+    table = '<table id="absentTable" class="display col-11 table-striped"><thead><tr><th>ID</th><th>Début</th><th>Fin</th><th>Justifiée</th><th>Commentaire</th></tr></thead><tbody><tr></tr></tbody></table>';
+    $('#absent-container').append(table);
 }

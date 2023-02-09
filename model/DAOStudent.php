@@ -97,7 +97,10 @@ class DAOStudent {
     }
 
     function GetStudentByParentId($id){
-        $sql= "SELECT * FROM student WHERE parents_id = '$id'";
+        $sql= "SELECT student.user_id, student.id, student.class_id, user.Name, user.Last_Name, user.Birthdate, user.Photo 
+                FROM student 
+                Left join user on student.user_id = user.id
+                WHERE student.parents_id = '$id'";
         $stmt = $this->con->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll();
