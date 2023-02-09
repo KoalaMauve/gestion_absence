@@ -135,6 +135,7 @@ function deleteAbsentTable() {
 }
 
 function createAbsentTable() {
+    $('.welcome').remove();
     table = '<table id="absentTable" class="display col-11 table-striped"><thead><tr><th>ID</th><th>Début</th><th>Fin</th><th>Justifiée</th><th>Commentaire</th></tr></thead><tbody><tr></tr></tbody></table>';
     $('#absent-container').append(table);
     $('#absent-container').show();
