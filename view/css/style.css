@@ -167,6 +167,9 @@ h1 {
 .welcome h6 {
     font-size: 1.2em;
 }
+.welcome p {
+    text-align: center;
+}
 
 .student-avatar {
     display: flex;
