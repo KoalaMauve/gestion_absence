@@ -95,6 +95,15 @@ class DAOStudent {
         //var_dump($result);
         return $result;
     }
+
+    function GetStudentByParentId($id){
+        $sql= "SELECT * FROM student WHERE parents_id = '$id'";
+        $stmt = $this->con->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    }
+
     function AddStudent($student){
 
         $data = ['class_id' => $student->getClass_id(),
