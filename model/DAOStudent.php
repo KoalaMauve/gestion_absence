@@ -153,6 +153,15 @@ class DAOStudent {
         //***********End of  test *****************/
     }
 
+
+    function GetStudentByClassId($class_id){
+        $sql= "SELECT * FROM student WHERE class_id = 4";
+        $stmt = $this->con->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchAll();
+        return $result;
+    }
+
 }
 
 
