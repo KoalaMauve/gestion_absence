@@ -32,10 +32,10 @@ class DAOClass {
     }
 
     function GetClassByProf($prof_id){
-        $sql= "SELECT * FROM prof_has_class
-                LEFT JOIN class
-                ON class.id = prof_has_class.class_id
-                WHERE prof_has_class.prof_id = 4";
+        $sql= "SELECT class.id, name FROM class
+            LEFT JOIN prof_has_class
+            ON prof_has_class.class_id = class.id
+            WHERE prof_has_class.prof_id = 4";
         $stmt = $this->con->prepare($sql);
         $stmt->execute();
         $result = $stmt->fetchAll();

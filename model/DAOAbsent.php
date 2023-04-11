@@ -30,23 +30,26 @@ class DAOAbsent {
         return $result;
     }
 
-//    function AddStudent($student){
-//
-//        $data = ['class_id' => $student->getClass_id(),
-//            'parents_id' => $student->getParents_id(),
-//            'user_id' => $student->getUser_id(),
-//        ];
-//        $sql = "INSERT INTO student (class_id,parents_id,user_id)
-//                VALUES(:class_id,:parents_id,:user_id)";
-//        $stmt = $this->con->prepare($sql);
-//        $stmt->execute($data);
-//
-//        //*********** test *****************/
-//        /*$sql = "INSERT INTO student (class_id,parents_id,user_id,) VALUES('4','4','12')";
-//          $this->con->query($sql); */
-//        //***********End of  test *****************/
-//
-//    }
+    function AddAbsent($absent){
+
+        $data = ['start_date' => $absent->getStartDate(),
+            'end_date' => $absent->getEndDate(),
+            'student_id' => $absent->getStudentId(),
+            'prof_id' => $absent->getProfId(),
+            'is_justified' => $absent->getIsJustified(),
+            'comment' => $absent->getComment(),
+        ];
+        $sql = "INSERT INTO absent (start_date,end_date,student_id,prof_id,is_justified,comment) 
+                VALUES(:start_date,:end_date,:student_id,:prof_id,:is_justified,:comment)";
+        $stmt = $this->con->prepare($sql);
+        $stmt->execute($data);
+
+        //*********** test *****************/
+        /*$sql = "INSERT INTO student (class_id,parents_id,user_id,) VALUES('4','4','12')";
+          $this->con->query($sql); */
+        //***********End of  test *****************/
+
+    }
 //    function UpdateStudent($student){
 //        $data = ['StudentId' => $student->getStudentId(),
 //            'class_id' => $student->getClass_id(),
